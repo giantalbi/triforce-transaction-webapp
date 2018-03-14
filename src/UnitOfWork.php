@@ -21,22 +21,6 @@ class UnitOfWork{
             $this->_repositories[$name] = new $fullClassName($this->_db);
         return $this->_repositories[$name];
     }
-
-    //List of the different repositories
-    /*
-    private $ArticleRepository;
-    private $MembreRepository;
-    private $JeuRepository;
-    private $ConsoleRepository;
-    private $AbonnementRepository;
-    private $ConfirmationMdpRepository;
-    private $ConfirmationEmailRepository;
-    private $NiveauRepository;
-    private $QueteRepository;
-    private $SuccesRepository;
-    private $Membre_QueteRepository;
-    private $Membre_SgtuccesRepository;
-    */
 }
 
 ?>

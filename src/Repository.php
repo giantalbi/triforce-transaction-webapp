@@ -78,7 +78,7 @@ abstract class Repository{
     public function insert($pObj){
         //Validate the model
         $this->validateModel($pObj);
-        $model_properties = get_class_vars($this->_model);
+        $model_properties = get_class_vars($this->_modelClassName);
         $model_properties_str = "";
         $model_properties_values_str = "";
         foreach($model_properties as $key => $value){
@@ -195,8 +195,8 @@ abstract class Repository{
 
             //Compare the give object's model to the Repository's model
             public function validateModel($pObj){
-                if(get_class($pObj) != $this->_model)
-                throw new Exception("The given object does not match the model");
+                if(get_class($pObj) != $this->_modelClassName)
+                throw new Exception("The given object does not match the model, Given: ".get_class($pObj)." Expected: ".$this->_model);
             }
 
             public function createByForm(Array $pForm){

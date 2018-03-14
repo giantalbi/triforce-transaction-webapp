@@ -2,10 +2,8 @@
 
 namespace OgreWeb\DAL;
 use OgreWeb\Lib\Repository;
-class SuccesRepository extends Repository{
+class TransactionRepository extends Repository{
     public function __construct($pContext){
-        parent::__construct("Succes", $pContext);
+        parent::__construct("Transaction", $pContext);
     }
 }
-
-?>
