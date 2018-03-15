@@ -38,6 +38,7 @@ class ApiProductController extends Controller{
         $new_product->Name = $name;
         $price = number_format($price, 2);
         $new_product->Price = str_replace( ',', '.', $price);
+        $new_product->Deleted = false;
         $product = $this->_uow->ProductRepository->insert($new_product);
         if(!$product){
             HttpResponse::internalError();
