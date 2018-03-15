@@ -4,4 +4,5 @@ class Product{
     public $ProductID;
     public $Name;
     public $Price;
+    public $Deleted;
 }

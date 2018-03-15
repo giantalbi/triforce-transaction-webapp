@@ -1,4 +1,8 @@
 <div class='col-sm-6 col-11 justify-content-between'>
+    <div class="col-12 alert alert-warning" role="alert">
+        Veuiller remplire ce formulaire <b>OBLIGATOIREMENT</b> à chaque transaction
+    </div>
+
     <button type="button" class="btn btn-info col-12" data-toggle="modal" data-target="#addProductModal">
     Ajouter un produit
     </button>
@@ -6,8 +10,11 @@
     <ul class='list-group' id='products'>
         <?php
         foreach($data['products'] as $product){
+            if($product->Deleted) 
+                continue;
         ?>
             <li data-id='<?=$product->ProductID?>' data-price='<?=$product->Price?>' class='list-group-item clearfix d-flex'>
+            <span data-toggle='modal' data-target='#deleteModal' class="p-2 btn remove-product fa fa-times" type="button"></span>
             <span class='p-2'><?=$product->Name?></span>
             <b class='p-2'><?=$product->Price?>$</b>
             <span class='ml-auto'>
@@ -41,6 +48,21 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
         <button onclick='sendTransaction()' id='sendTransaction' type="button" class="btn btn-primary">Oui</button> </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Supprimer ce produit ?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+        <button onclick='deleteProduct()' id='deleteProduct' type="button" class="btn btn-danger">Oui</button> </div>
     </div>
   </div>
 </div>
@@ -78,6 +100,21 @@ function createProduct(){
         method: 'POST',
         url: '/api/Product/create/',
         data: {Name: $('#name').val(), Price: $('#price').val()},
+        success: () => {
+            window.location.reload();
+        },
+        error: (error) => {
+            //TODO: Put alert inside modal of responseText != ""
+            console.log(error.responseText)
+        }
+    });
+}
+
+function deleteProduct(){
+    $.ajax({
+        method: 'POST',
+        url: '/api/Product/delete/',
+        data: {id: productToDelete},
         success: () => {
             window.location.reload();
         },
@@ -136,6 +173,11 @@ $(() => {
         input.val(parseInt(input.val()) + 1);
         setTotal();
     });    
+    
+    $('.remove-product').on('click', (e) => {
+        productToDelete = parseInt($(e.target).parent().data('id'));
+    })
 });
+var productToDelete = -1;
 
 </script>

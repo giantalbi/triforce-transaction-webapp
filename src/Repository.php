@@ -125,7 +125,7 @@ abstract class Repository{
                 if(isset($current_entity)){
 
                     //Parse the data from the new object using the model's properties
-                    $model_properties = get_class_vars($this->_model);
+                    $model_properties = get_class_vars($this->_modelClassName);
                     $model_properties_str = "";
                     foreach($model_properties as $key => $value){
                         //Check if last key
@@ -133,16 +133,16 @@ abstract class Repository{
                         $value = $pObj->{$key};
                         //Get the object's properties name and value and escape the string
                         if(is_numeric($value))
-                        $value_escape = $value;
+                            $value_escape = $value;
                         else if(is_bool($value))
-                        $value_escape = ($value ? "1" : "0");
+                            $value_escape = ($value ? "1" : "0");
                         else
-                        $value_escape = $this->_context->escape($current_entity->{$key});
+                            $value_escape = $this->_context->escape($current_entity->{$key});
                         $model_properties_str .= $key."="."'".$value_escape."'".($last ? "": " AND ");
                     }
 
                     //Get the property containing the ID
-                    $new_model_properties = get_class_vars($this->_model);
+                    $new_model_properties = get_class_vars($this->_modelClassName);
                     $new_model_properties_str = "";
                     //$new_model_properties_values_str = "";
                     foreach($new_model_properties as $key => $value){

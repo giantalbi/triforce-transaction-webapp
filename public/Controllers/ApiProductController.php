@@ -46,6 +46,32 @@ class ApiProductController extends Controller{
         return HttpResponse::success();
     }
 
+    public function delete(){
+        //Validate the data
+        if(
+            !array_key_exists("id", $_POST) || !is_numeric($_POST["id"])
+        ){
+            HttpResponse::badRequest();
+            return;
+        }
+        
+        $id = $this->_uow->sanitize($_POST["id"]);
+
+        // Check if the product already exists
+        $exist = $this->_uow->ProductRepository->get(array(
+            "WHERE" => "ProductID='".$id."'"
+        ))[0];
+        if(!$exist){
+            HttpResponse::badRequest();
+            return;
+        }
+        $exist->Deleted = true;
+
+        $this->_uow->ProductRepository->update($exist, $exist->ProductID);
+
+        return HttpResponse::success();
+    }
+
     public function get(){
         return HttpResponse::success($this->_uow->ProductRepository->get());
     }
