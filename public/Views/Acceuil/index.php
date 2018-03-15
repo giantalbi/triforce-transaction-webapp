@@ -1,4 +1,4 @@
-<div class='col-sm-6 col-11 justify-content-between'>
+<div class='col-sm-6 col-12 justify-content-between'>
     <div class="col-12 alert alert-warning" role="alert">
         Veuiller remplire ce formulaire <b>OBLIGATOIREMENT</b> à chaque transaction
     </div>
@@ -14,13 +14,13 @@
                 continue;
         ?>
             <li data-id='<?=$product->ProductID?>' data-price='<?=$product->Price?>' class='list-group-item clearfix d-flex'>
-            <span data-toggle='modal' data-target='#deleteModal' class="p-2 btn remove-product fa fa-times" type="button"></span>
-            <span class='p-2'><?=$product->Name?></span>
-            <b class='p-2'><?=$product->Price?>$</b>
-            <span class='ml-auto'>
-                <span class="btn btn-outline-secondary remove-product" type="button">-</span>
+            <span data-toggle='modal' data-target='#deleteModal' class="mt-auto mb-auto btn remove-product fa fa-times" type="button"></span>
+            <span class='mx-auto my-auto'><?=$product->Name?></span>
+            <b class='mx-auto my-auto'><?=$product->Price?>$</b>
+            <span class='ml-auto my-auto'>
+                <span class=" btn btn-outline-secondary remove-product" type="button">-</span>
                 <input class='count' type='text' min='0' maxlength='2' size='2' value='0' readonly/>
-                <span class="btn btn-outline-secondary add-product" type="button">+</span>
+                <span class=" btn btn-outline-secondary add-product" type="button">+</span>
             </span>
         </li>
         <?php } ?>
